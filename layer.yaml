@@ -1,0 +1,20 @@
+"options":
+  "basic":
+    "packages":
+    - "autoconf"
+    - "automake"
+    - "make"
+    - "gcc"
+    - "git"
+    "use_venv": !!bool "false"
+    "include_system_packages": !!bool "false"
+  "nginx": {}
+  "fiche": {}
+  "present": {}
+"includes":
+- "layer:basic"
+- "interface:http"
+- "layer:basic"
+- "layer:nginx"
+- "interface:http"
+"is": "fiche"

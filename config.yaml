@@ -1,0 +1,15 @@
+options:
+  port:
+    type: int
+    default: 80
+    description: |
+      NGINX listen port
+  host:
+    type: string
+    default: "0.0.0.0"
+    description: listen address
+  git-repo:
+    type: string
+    default: "https://github.com/jamesbeedy/dhc_ops_presentation.git"
+    description: |
+      Git repo from which to clone presentation

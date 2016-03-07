@@ -1,0 +1,12 @@
+"name": "present"
+"summary": "Charm to deploy presentations made with sphinx + react.js."
+"maintainer": "James Beedy <jamesbeedy@gmail.com>"
+"description": |
+  Present will help you build and deploy your presentations!
+"tags":
+- "ops"
+- "presentation"
+"provides":
+  "website":
+    "interface": "http"
+"subordinate": !!bool "false"
