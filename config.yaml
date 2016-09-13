@@ -8,8 +8,23 @@ options:
     type: string
     default: "0.0.0.0"
     description: listen address
-  git-repo:
+  commit:
     type: string
-    default: "https://github.com/jamesbeedy/dhc_ops_presentation.git"
+    default: !!null 
+    description: commit to update to
+  repo:
+    type: string
+    default: !!null 
+    description: The repository to clone from, this is required
+  deploy-key:
+    type: string
+    default: 
     description: |
-      Git repo from which to clone presentation
+      A deploy key is an SSH key that is stored on the server and
+      grants access to a repository.
+  key-required:
+    type: boolean
+    default: !!bool false
+    description: |
+      This should be set to true to ensure that a deploy key is
+      deployed if necessary

@@ -1,20 +1,16 @@
-"options":
-  "basic":
-    "packages":
-    - "autoconf"
-    - "automake"
-    - "make"
-    - "gcc"
-    - "git"
-    "use_venv": !!bool "false"
-    "include_system_packages": !!bool "false"
-  "nginx": {}
-  "fiche": {}
-  "present": {}
-"includes":
-- "layer:basic"
-- "interface:http"
-- "layer:basic"
-- "layer:nginx"
-- "interface:http"
-"is": "fiche"
+options:
+  basic:
+    packages:
+    - autoconf
+    - automake
+    - make
+    - gcc
+    - git
+  git-deploy:
+    target: "/srv/presentation"
+includes:
+- layer:basic
+- layer:git-deploy
+- layer:nginx
+- interface:http
+repo: "https://github.com/jamesbeedy/layer-present.git"
