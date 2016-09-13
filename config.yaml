@@ -22,6 +22,11 @@ options:
     description: |
       A deploy key is an SSH key that is stored on the server and
       grants access to a repository.
+  app-path:
+    type: string
+    default: "/srv/presentation"
+    description: |
+      Path to application 
   key-required:
     type: boolean
     default: !!bool false
