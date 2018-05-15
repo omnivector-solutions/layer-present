@@ -13,4 +13,4 @@ includes:
 - layer:git-deploy
 - layer:nginx
 - interface:http
-repo: "https://github.com/jamesbeedy/layer-present.git"
+repo: "https://github.com/omnivector/layer-present.git"

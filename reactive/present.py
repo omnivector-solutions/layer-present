@@ -2,24 +2,22 @@
 # Copyright (c) 2016, James Beedy <jamesbeedy@gmail.com>
 
 import os
-import sys
-import pwd
-import shutil
 import subprocess
 
-from charms.reactive import when
-from charms.reactive import when_not
-from charms.reactive import only_once
-from charms.reactive import set_state
 from charmhelpers.core.templating import render
 from charmhelpers.core import hookenv
 from charmhelpers.core import host
 from charmhelpers.core.host import chdir
 from charmhelpers.contrib.python.packages import pip_install
 
-from charms import layer
+from charms.reactive import (
+    when,
+    when_not,
+    set_flag,
+)
+from charms.layer import options
 
-from nginxlib import configure_site
+from charms.layer.nginx import configure_site
 
 
 config = hookenv.config()
@@ -27,20 +25,19 @@ config = hookenv.config()
 
 @when('nginx.available', 'codebase.available')
 @when_not('presentation.available')
-@only_once
 def install_presentation():
 
     """ Install presentation
     """
 
-    opts = layer.options('git-deploy')
+    opts = options('git-deploy')
 
     # Clone repo
     hookenv.status_set('maintenance', 
                        'Installing and building the presentation.')
 
     # Build and install
-    with chdir(opts.get('target')):
+    with chdir(os.path.join(opts.get('target'), 'current')):
         with open('requirements.txt', 'r') as f:
             for i in list(map(lambda b: b.strip('\n'), f.readlines())):
                 pip_install(i)
@@ -59,8 +56,8 @@ def install_presentation():
     # Set status
     hookenv.status_set('active', 
                        'Presentation is active on port %s' % config['port'])
-    # Set state
-    set_state('presentation.available')
+    # Set flag
+    set_flag('presentation.available')
     
 
 @when('nginx.available', 'website.available')

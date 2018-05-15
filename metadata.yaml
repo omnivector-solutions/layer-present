@@ -7,7 +7,7 @@ tags:
 - ops
 - presentation
 series:
-  - xenial
+  - bionic
 provides:
   website:
     interface: http
