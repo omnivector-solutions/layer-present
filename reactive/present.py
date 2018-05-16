@@ -32,7 +32,6 @@ def install_presentation():
 
     opts = options('git-deploy')
 
-    # Clone repo
     hookenv.status_set('maintenance', 
                        'Installing and building the presentation.')
 
@@ -58,7 +57,13 @@ def install_presentation():
                        'Presentation is active on port %s' % config['port'])
     # Set flag
     set_flag('presentation.available')
-    
+
+
+@when_not('status')
+def set_status():
+    hookenv.status_set('active', 
+                       'Presentation is active on port %s' % config['port'])
+
 
 @when('nginx.available', 'website.available')
 def configure_website(website):

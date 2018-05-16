@@ -1,15 +1,27 @@
-#!/bin/bash
+#!/usr/local/sbin/charm-env python3
 
-commit = action-get commit
+import os
 
-if [[ commit == "" ]]; then
-  echo "Cannot update to a commit without a commit"
-  exit 0
-fi
+from subprocess import call
 
-cd $(config-get app-path)
-git fetch origin master
-git checkout $(action-get commit)
-sphinx-build -b html source $(config-get app-path)
-chown -R www-data:www-data $(config-get app-path)
+from charms.layer import options
 
+from charms.layer.git_deploy import update_to_commit
+
+from charmhelpers.core.host import chdir
+from charmhelpers.core.hookenv import (
+    action_get,
+    status_set,
+)
+
+if __name__ == "__main__":
+    opts = options('git-deploy')
+    commit_or_branch = action_get("commit-or-branch")
+    current = os.path.join(opts.get('target'), 'current')
+    status_set('maintenance', "Updating presentation")
+    update_to_commit('master', current)
+
+    with chdir(os.path.join(opts.get('target'), 'current')):
+        sphinx_build_cmd = 'sphinx-build -b html source %s' % opts.get('target')
+        call(sphinx_build_cmd.split(), shell=False)
+    status_set('active', "Presentation ready")

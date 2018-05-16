@@ -1,7 +1,6 @@
-update-presentation:
-  description: Updates the app to a given sha
-  options:
-    commit:
-      type: string
-      default:
-      description: SHA of the commit to checkout
+"update-presentation":
+  "description": "Update to a commit sha or tip of branch"
+  "params":
+    "commit-or-branch":
+      "type": "string"
+      "description": "The commit sha or branch name to update to"
